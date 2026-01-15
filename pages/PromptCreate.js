@@ -1,9 +1,9 @@
 import React from "react";
-const Create = () => {
+const PromptCreate = () => {
     return(
         <div>
             Creer
         </div>
     )
 }
-export default Create;
+export default PromptCreate;

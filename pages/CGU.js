@@ -1,9 +1,9 @@
 import React from "react";
-const PromptEdit = () => {
+const CGU = () => {
     return(
         <div>
-           Editer
+            CGU
         </div>
     )
 }
-export default PromptEdit;
+export default CGU;
