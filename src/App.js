@@ -1,22 +1,20 @@
 import logo from './logo.svg';
 import './App.css';
+import { signup } from './services/firebaseAuth'
+function App() { 
+  const createuser =(e) => {
+    e.preventDefault();
+    signup('ali@gmail.com','123');
 
-function App() {
+
+  }
+
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <form onSubmit={createuser}>
+        <button>Ajouter un user</button>
+      </form>
       </header>
     </div>
   );
