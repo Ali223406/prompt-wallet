@@ -6,9 +6,9 @@ const NavMenu = () => {
   return (
     <nav className="navbar">
       <ul className="nav-links">
-        <li><Link to="/dashboard">Accueil</Link></li>
-        <li><Link to="/about">À propos</Link></li>
-        <li><Link to="/cgu">CGU</Link></li>
+        <li><Link to="/Ashboard">Accueil</Link></li>
+        <li><Link to="/About">À propos</Link></li>
+        <li><Link to="/CGU">CGU</Link></li>
       </ul>
     </nav>
   );
