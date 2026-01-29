@@ -1,13 +1,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+import { createBrowserRouter } from "react-router";
+import { RouterProvider } from "react-router/dom";
+import Dashboard from './pages/Dashboard';
+import CGU from './pages/CGU';
+import PromptCreate from './pages/PromptCreate';
+import PromptEdit from './pages/PromptEdit';
+import About from './pages/About';
+import NavMenuLayout from './components/NavMenuLayout';
+import BackButtonLayout from './components/BackButtonLayout';
+import DarkModeToggleLayout from './components/DarkModeToggleLayout';
+
+
+const router = createBrowserRouter([
+  {
+    element: <DarkModeToggleLayout/>,
+    children: [
+      {
+        element: <NavMenuLayout/>,
+        children: [
+          { path: "/", Component: Dashboard },
+          { path: "cgu", Component: CGU },
+          { path: "about", Component: About },
+        ],
+      },
+      {
+        element: <BackButtonLayout/>,
+        children: [
+          { path: "new-prompt", Component: PromptCreate },
+          { path: "prompt-edit", Component: PromptEdit },
+        ],
+      }
+    ]
+  }
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>
 );
 
