@@ -7,10 +7,10 @@ const NavMenu = () => {
     <nav className="NavMenu">
       <ul className="nav-links">
         <li>
-          <Link to="/">List</Link>
+          <Link to="/">Dashboard</Link>
         </li>
         <li>
-          <Link to="/new-prompt">New</Link>
+          <Link to="/new-prompt">New_prompt</Link>
         </li>
         <li>
           <Link to="/cgu">CGU</Link>
