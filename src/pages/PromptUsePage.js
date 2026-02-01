@@ -1,15 +1,19 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import PromptUse from "./PromptUse";
+import PromptUse from "../components/prompt/PromptUse";
 
-const PromptUsePage = ({ prompts }) => {
+const PromptUsePage = ({ prompts: propsPrompts }) => {
   const { id } = useParams();
   const navigate = useNavigate();
-  
-if (!prompts || prompts.length === 0) return <div>Loading...</div>;
 
-  // Comparer ID correctement
-  const prompt = prompts.find((p) => p.id.toString() === id.toString());
+  // Renommer la variable locale pour éviter le conflit
+  const allPrompts = propsPrompts && propsPrompts.length > 0
+    ? propsPrompts
+    : JSON.parse(localStorage.getItem("my_prompts") || "[]");
+
+  if (!allPrompts || allPrompts.length === 0) return <div>Loading prompts...</div>;
+
+  const prompt = allPrompts.find((p) => p.id.toString() === id.toString());
 
   if (!prompt) {
     return (

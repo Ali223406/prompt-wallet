@@ -6,8 +6,8 @@ const PromptCard = ({ prompt, onDelete, onEdit, onUse }) => {
       {/* Titre cliquable */}
       <h3
         className="cursor-pointer text-green-500 font-semibold text-lg hover:underline mb-2"
-        onClick={() => onUse(prompt.id)}
-      >
+       onClick={onUse} // déjà passé avec id
+>
         {prompt.title}
       </h3>
 

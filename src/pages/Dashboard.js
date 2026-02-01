@@ -60,8 +60,8 @@ const Dashboard = ({ prompts: propsPrompts, setPrompts: propsSetPrompts }) => {
             key={prompt.id}
             prompt={prompt}
             onDelete={handleDelete}
-            onEdit={handleEdit}
-            onUse={handleUse}
+            onEdit={() => handleEdit(prompt.id)} // ← passer l’id
+            onUse={() => handleUse(prompt.id)}
           />
         ))}
       </div>
