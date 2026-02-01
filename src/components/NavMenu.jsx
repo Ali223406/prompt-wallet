@@ -12,12 +12,12 @@ const NavMenu = () => {
       <ul className="flex gap-4">
         <li>
           <NavLink to="/" className={linkClass}>
-            List
+            Dashboard
           </NavLink>
         </li>
         <li>
           <NavLink to="/new-prompt" className={linkClass}>
-            New
+            New Prompt
           </NavLink>
         </li>
         <li>
