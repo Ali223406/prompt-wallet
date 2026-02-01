@@ -1,22 +1,34 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import './NavMenu.css';
+import { NavLink } from 'react-router-dom';
 
 const NavMenu = () => {
+  const linkClass = ({ isActive }) =>
+    `px-3 py-2 rounded hover:bg-gray-200 dark:hover:bg-gray-700 transition ${
+      isActive ? 'bg-gray-300 dark:bg-gray-600 font-semibold' : ''
+    }`;
+
   return (
-    <nav className="NavMenu">
-      <ul className="nav-links">
+    <nav className="bg-white dark:bg-gray-800 p-4 shadow">
+      <ul className="flex gap-4">
         <li>
-          <Link to="/">List</Link>
+          <NavLink to="/" className={linkClass}>
+            List
+          </NavLink>
         </li>
         <li>
-          <Link to="/new-prompt">New</Link>
+          <NavLink to="/new-prompt" className={linkClass}>
+            New
+          </NavLink>
         </li>
         <li>
-          <Link to="/cgu">CGU</Link>
+          <NavLink to="/cgu" className={linkClass}>
+            CGU
+          </NavLink>
         </li>
         <li>
-          <Link to="/about">About</Link>
+          <NavLink to="/about" className={linkClass}>
+            About
+          </NavLink>
         </li>
       </ul>
     </nav>

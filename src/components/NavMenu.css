@@ -1,31 +1,47 @@
+:root {
+  --green: #7bc950;
+  --bg-dark: #1f1f1f;
+  --text-light: #ffffff;
+}
+
 /* Menu par défaut (Light Mode) */
 .NavMenu {
-    background-color: var(--green);
-    padding: 16px 32px;
-    display: flex;
-    justify-content: center;
-    transition: background-color 0.3s, color 0.3s;
+  background-color: var(--green);
+  padding: 16px 32px;
+  display: flex;
+  justify-content: center;
+  transition: background-color 0.3s, color 0.3s;
 }
 
 .NavMenu ul {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap; /* Pour responsive */
 }
 
 .NavMenu li {
-    padding: 8px 16px;
-    cursor: pointer;
-    color: var(--green);
-    transition: color 0.3s;
+  padding: 8px 16px;
+  cursor: pointer;
+  color: var(--text-light);
+  transition: color 0.3s, background-color 0.3s;
+}
+
+.NavMenu li:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
 
 /* Menu en Dark Mode */
 .NavMenu.dark {
-    background-color: var(--bg-dark);
+  background-color: var(--bg-dark);
 }
 
 .NavMenu.dark li {
-    color: var(--green);
+  color: var(--text-light); /* Contraste sur fond sombre */
+}
+
+.NavMenu.dark li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
