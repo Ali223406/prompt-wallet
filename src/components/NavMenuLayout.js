@@ -1,10 +1,11 @@
-// NavMenuLayout.jsx
 import React from "react";
 import { Outlet, useOutletContext } from "react-router";
 import NavMenu from "./NavMenu";
+import './NavMenu.css';
 
 const NavMenuLayout = () => {
-  const { isDarkMode } = useOutletContext(); // récupère le dark mode depuis le layout parent
+  const context = useOutletContext() || {};  // <-- fallback
+  const { isDarkMode = false } = context;
 
   return (
     <div className="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
@@ -18,3 +19,4 @@ const NavMenuLayout = () => {
 };
 
 export default NavMenuLayout;
+
