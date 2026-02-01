@@ -1,29 +1,47 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import NavMenu from './components/NavMenu';
-import Dashboard from './pages/Dashboard'; 
-import About from './pages/About';
-import Cgu from './pages/CGU';
+import DarkModeToggleLayout from "./components/DarkModeToggleLayout";
+import NavMenuLayout from "./components/NavMenuLayout";
+import Dashboard from "./pages/Dashboard";
+import PromptCreate from "./pages/PromptCreate";
+import PromptEdit from "./pages/PromptEdit";
 
-import './App.css';
+import PromptUsePage from "./pages/PromptUsePage";
+import About from "./pages/About";
+import CGU from "./pages/CGU";
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        { }
-        <NavMenu />
+  const [prompts, setPrompts] = useState(null); // null = pas encore chargé
 
-        {}
-        <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/cgu" element={<Cgu />} />
-        </Routes>
-      </div>
-    </Router>
+  useEffect(() => {
+    const saved = JSON.parse(localStorage.getItem("my_prompts") || "[]");
+    setPrompts(saved);
+  }, []);
+
+  useEffect(() => {
+    if (prompts) localStorage.setItem("my_prompts", JSON.stringify(prompts));
+  }, [prompts]);
+
+  // Tant que prompts pas encore chargé
+  if (prompts === null) return <div className="p-4 text-center">Loading...</div>;
+
+  return (
+    <BrowserRouter>
+      <DarkModeToggleLayout>
+        <NavMenuLayout>
+          <Routes>
+            <Route path="/" element={<Dashboard prompts={prompts} setPrompts={setPrompts} />} />
+            <Route path="/new-prompt" element={<PromptCreate prompts={prompts} setPrompts={setPrompts} />} />
+            <Route path="/edit/:id" element={<PromptEdit prompts={prompts} setPrompts={setPrompts} />} />
+            <Route path="/use/:id" element={<PromptUsePage prompts={prompts} />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/cgu" element={<CGU />} />
+            <Route path="*" element={<div className="p-4 text-center">404 Not Found</div>} />
+          </Routes>
+        </NavMenuLayout>
+      </DarkModeToggleLayout>
+    </BrowserRouter>
   );
 }
 

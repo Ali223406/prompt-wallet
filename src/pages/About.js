@@ -1,46 +1,19 @@
-import React from 'react';
+import React from "react";
 
 const About = () => {
   return (
-    <div style={{ backgroundColor: 'rgba(255, 255, 255, 0.2)',
-        padding: '15px',
-        borderRadius: '15px',
-        marginBottom: '20px',
-        border: '2px solid #000',
-         }}>
-      <h1 style={{ 
-            padding: '30px',
-            margin: '40px auto',
-            maxWidth: '800px',
-            color: '#9A48D0' }}>About Prompt Wallet</h1>
-      
-      <p style={{
-            backgroundColor: '#9A48D0', // Ton violet Figma
-            border: '4px solid #000',
-            borderRadius: '25px',
-            padding: '30px',
-            margin: '40px auto',
-            maxWidth: '800px',
-            boxShadow: '8px 8px 0px #000',
-            color: '#000', // Texte noir pour le contraste sur le vert
-        }}>
+    <div className="p-6 space-y-6 bg-gray-100 dark:bg-gray-900 min-h-screen">
+      <h1 className="text-4xl font-bold text-center text-purple-700 dark:text-purple-300">
+        About Prompt Wallet
+      </h1>
+
+      <p className="bg-purple-700 dark:bg-purple-500 text-black dark:text-white border-4 border-black rounded-2xl p-6 shadow-lg max-w-3xl mx-auto">
         Prompt Wallet was born from EverydayLLM’s desire to simplify the daily workflow
         of developers working with artificial intelligences such as ChatGPT, Claude, or Mistral.
       </p>
 
-      <div
-        style={{
-            backgroundColor: '#9A48D0', // Ton violet Figma
-            border: '4px solid #000',
-            borderRadius: '25px',
-            padding: '30px',
-            margin: '40px auto',
-            maxWidth: '800px',
-            boxShadow: '8px 8px 0px #000',
-            color: '#000', // Texte noir pour le contraste sur le vert
-        }}
-      >
-        <h3>Development Context</h3>
+      <div className="bg-purple-700 dark:bg-purple-500 text-black dark:text-white border-4 border-black rounded-2xl p-6 shadow-lg max-w-3xl mx-auto space-y-4">
+        <h3 className="text-2xl font-semibold">Development Context</h3>
         <p>
           This project was developed as a team effort by Guinildo and Alicia,
           students at L’École Multimédia, in response to the growing need for

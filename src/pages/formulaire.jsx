@@ -1,13 +1,27 @@
-const handleSave  =( newprompt)=>{
-    //create a list of prompts in local storage
-    const save = JSON.parse(localStorage.getItem('my_prompts') ||'[]' );
+import { useNavigate } from "react-router-dom";
 
-    // add a new prompt to the list
-    save.push({...newprompt, id : Date.now()}); 
+const PromptCreate = () => {
+  const navigate = useNavigate();
 
-    // save th update list to local storage
-    loclalStorage.setItem('my_prompts', JSON.stringify(save));
+  const handleSave = (newPrompt) => {
+    // Récupérer la liste depuis localStorage
+    const savedPrompts = JSON.parse(localStorage.getItem("my_prompts") || "[]");
 
-    // return to the dashboard
-    window.location.href = '/dashboard'; 
-}
+    // Ajouter le nouveau prompt avec un id unique
+    savedPrompts.push({ ...newPrompt, id: Date.now().toString() });
+
+    // Sauvegarder la liste mise à jour
+    localStorage.setItem("my_prompts", JSON.stringify(savedPrompts));
+
+    // Naviguer vers le dashboard sans reload complet
+    navigate("/dashboard");
+  };
+
+  return (
+    <div>
+      {/* Ton composant PromptForm ici */}
+    </div>
+  );
+};
+
+export default PromptCreate;

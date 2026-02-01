@@ -19,24 +19,32 @@ const PromptCard = ({ prompt, onDelete, onEdit, onUse }) => {
       {/* Boutons */}
       <div className="flex gap-2">
         <button
-          onClick={() => onEdit(prompt)}
-          className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
+            onClick={() => onEdit(prompt)}
+            className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600 transition"
         >
-          Edit
+            Edit
         </button>
 
         <button
-          onClick={() => {
+            onClick={() => {
             if (window.confirm('Are you sure you want to delete this prompt?')) {
-              onDelete(prompt.id);
+                onDelete(prompt.id);
             }
-          }}
-          className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
+            }}
+            className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition"
         >
-          Delete
+            Delete
         </button>
-      </div>
-    </div>
+
+        <button
+            onClick={() => onUse(prompt.id)}
+            className="px-3 py-1 bg-green-500 text-white rounded hover:bg-green-600 transition"
+        >
+            Use
+        </button>
+        </div>
+
+            </div>
   );
 };
 
