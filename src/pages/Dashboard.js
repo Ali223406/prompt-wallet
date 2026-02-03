@@ -52,21 +52,44 @@ const Dashboard = ({ prompts: propsPrompts, setPrompts: propsSetPrompts }) => {
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
       const file = files[0];
+      // Check if it's a text file
+      if (!file.type.startsWith('text/') && !file.name.endsWith('.txt')) {
+        alert('Please drop a text file (.txt)');
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onload = (event) => {
-        const text = event.target.result;
-        const title = file.name.replace(/\.[^/.]+$/, "");
-        const newPrompt = {
-          id: Date.now().toString(),
-          title: title,
-          text: text
-        };
-        const newPrompts = [...prompts, newPrompt];
-        setPrompts(newPrompts);
-        localStorage.setItem("my_prompts", JSON.stringify(newPrompts));
-        if (propsSetPrompts) propsSetPrompts(newPrompts);
-        alert(`Prompt "${title}" created from file!`);
+        try {
+          const text = event.target.result;
+          const title = file.name.replace(/\.[^/.]+$/, "");
+          
+          const newPrompt = {
+            id: Date.now().toString(),
+            title: title || 'Untitled',
+            text: text
+          };
+          
+          const newPrompts = [...prompts, newPrompt];
+          setPrompts(newPrompts);
+          localStorage.setItem("my_prompts", JSON.stringify(newPrompts));
+          
+          // Update parent if it manages state
+          if (propsSetPrompts) {
+            propsSetPrompts(newPrompts);
+          }
+          
+          alert(`Prompt "${newPrompt.title}" created from file!`);
+        } catch (error) {
+          console.error('Error reading file:', error);
+          alert('Error reading file: ' + error.message);
+        }
       };
+      
+      reader.onerror = () => {
+        alert('Error reading file');
+      };
+      
       reader.readAsText(file);
     }
   };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
   const [formData, setFormData] = useState({ title: '', text: '' });
+  const [errors, setErrors] = useState({});
 
   useEffect(() => {
     if (promptToEdit) {
@@ -12,18 +13,35 @@ const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error for this field when user starts typing
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: '' }));
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (!formData.title || !formData.text) {
-      return alert('Please fill both fields!');
+    const newErrors = {};
+    
+    if (!formData.title.trim()) {
+      newErrors.title = 'Title is required';
     }
+    if (!formData.text.trim()) {
+      newErrors.text = 'Prompt text is required';
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+
     onSave({
       ...formData,
       id: promptToEdit ? promptToEdit.id : Date.now().toString(),
     });
   };
+
+  const isFormValid = formData.title.trim() && formData.text.trim();
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white dark:bg-gray-800 rounded shadow mt-6">
@@ -38,8 +56,11 @@ const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
             value={formData.title}
             onChange={handleChange}
             placeholder="Enter prompt title"
-            className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
+              errors.title ? 'border-red-500' : ''
+            }`}
           />
+          {errors.title && <span className="text-red-500 text-sm mt-1">{errors.title}</span>}
         </label>
 
         <label className="flex flex-col">
@@ -50,14 +71,22 @@ const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
             onChange={handleChange}
             rows="6"
             placeholder="Enter prompt text with placeholders like [variable]"
-            className="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200"
+            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
+              errors.text ? 'border-red-500' : ''
+            }`}
           />
+          {errors.text && <span className="text-red-500 text-sm mt-1">{errors.text}</span>}
         </label>
 
         <div className="flex gap-2 mt-2">
           <button
             type="submit"
-            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition"
+            disabled={!isFormValid}
+            className={`px-4 py-2 text-white rounded transition ${
+              isFormValid
+                ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
+                : 'bg-gray-400 cursor-not-allowed opacity-50'
+            }`}
           >
             {promptToEdit ? 'Update Prompt' : 'Save Prompt'}
           </button>
