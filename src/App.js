@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import DarkModeToggleLayout from "./components/DarkModeToggleLayout";
 import NavMenuLayout from "./components/NavMenuLayout";
@@ -28,6 +28,7 @@ function App() {
 
   return (
     <BrowserRouter>
+      <NavigationListener />
       <DarkModeToggleLayout>
         <NavMenuLayout>
           <Routes>
@@ -43,6 +44,21 @@ function App() {
       </DarkModeToggleLayout>
     </BrowserRouter>
   );
+}
+
+// Component to handle Electron menu navigation
+function NavigationListener() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (window.electronAPI?.onNavigate) {
+      window.electronAPI.onNavigate((path) => {
+        navigate(path);
+      });
+    }
+  }, [navigate]);
+
+  return null;
 }
 
 export default App;

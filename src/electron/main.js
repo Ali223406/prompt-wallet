@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron');
+const { app, BrowserWindow, ipcMain, nativeTheme, Menu } = require('electron');
 const path = require('path');
 
 const isDev = process.env.NODE_ENV === 'development' || process.env.ELECTRON_START_URL === 'true';
@@ -41,6 +41,49 @@ function createWindow() {
   return win;
 }
 
+// Create native menu
+function createMenu(mainWindow) {
+  const template = [
+    {
+      label: 'Prompt',
+      submenu: [
+        {
+          label: 'Liste',
+          click: () => {
+            mainWindow.webContents.send('navigate-to', '/');
+          },
+        },
+        {
+          label: 'Nouveau',
+          click: () => {
+            mainWindow.webContents.send('navigate-to', '/new-prompt');
+          },
+        },
+      ],
+    },
+    {
+      label: 'Info',
+      submenu: [
+        {
+          label: 'CGU',
+          click: () => {
+            mainWindow.webContents.send('navigate-to', '/cgu');
+          },
+        },
+        {
+          label: 'A propos',
+          click: () => {
+            mainWindow.webContents.send('navigate-to', '/about');
+          },
+        },
+      ],
+    },
+  ];
+
+  const menu = Menu.buildFromTemplate(template);
+  Menu.setApplicationMenu(menu);
+}
+
 app.on('second-instance', () => {
   const [win] = BrowserWindow.getAllWindows();
   if (win) {
@@ -50,7 +93,8 @@ app.on('second-instance', () => {
 });
 
 app.whenReady().then(() => {
-  createWindow();
+  const mainWindow = createWindow();
+  createMenu(mainWindow);
   app.on('activate', () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
