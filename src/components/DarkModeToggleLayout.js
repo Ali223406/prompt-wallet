@@ -13,12 +13,21 @@ const DarkModeToggleLayout = () => {
     // Load saved mode for browser
     const savedMode = localStorage.getItem('darkMode') === 'true';
     setIsDarkMode(savedMode);
+    // Apply dark class immediately on mount
+    if (savedMode) {
+      document.documentElement.classList.add('dark');
+    }
   }, []);
 
   useEffect(() => {
-    document.body.classList.toggle('dark-mode', isDarkMode);
-    if (!isElectron) localStorage.setItem('darkMode', isDarkMode);
-  }, [isDarkMode, isElectron]);
+    // Apply dark class to html element for Tailwind
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+    localStorage.setItem('darkMode', isDarkMode);
+  }, [isDarkMode]);
 
   const switchDarkMode = async () => {
     if (isElectron) {
@@ -34,16 +43,16 @@ const DarkModeToggleLayout = () => {
   };
 
   return (
-    <div className="p-4">
+    <div>
       <button
-        className="px-3 py-2 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+        className="fixed top-4 right-4 z-50 px-3 py-2 rounded bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 text-gray-800 dark:text-gray-200 transition"
         onClick={switchDarkMode}
         aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
       >
         <FontAwesomeIcon icon={isDarkMode ? faSun : faMoon} />
       </button>
 
-      <Outlet />
+      <Outlet context={{ isDarkMode }} />
     </div>
   );
 };
