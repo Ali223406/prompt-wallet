@@ -32,12 +32,16 @@ function createWindow() {
 
   if (isDev) {
     win.loadURL('http://localhost:3000');
-    win.webContents.openDevTools();
   } else {
     win.loadFile(path.join(__dirname, '..', '..', 'build', 'index.html'));
   }
 
-  win.once('ready-to-show', () => win.show());
+  win.once('ready-to-show', () => {
+    win.show();
+    if (isDev) {
+      setTimeout(() => win.webContents.openDevTools(), 1000);
+    }
+  });
   return win;
 }
 

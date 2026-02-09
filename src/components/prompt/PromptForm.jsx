@@ -56,7 +56,7 @@ const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
             value={formData.title}
             onChange={handleChange}
             placeholder="Enter prompt title"
-            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
+            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 text-gray-900 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
               errors.title ? 'border-red-500' : ''
             }`}
           />
@@ -71,7 +71,7 @@ const PromptForm = ({ promptToEdit, onSave, onCancel }) => {
             onChange={handleChange}
             rows="6"
             placeholder="Enter prompt text with placeholders like [variable]"
-            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
+            className={`border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400  text-gray-900 bg-white dark:bg-gray-700 dark:border-gray-600 dark:text-gray-200 ${
               errors.text ? 'border-red-500' : ''
             }`}
           />

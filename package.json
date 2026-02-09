@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "main": "src/electron/main.js",
+  "homepage": "./",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.1.0",
@@ -22,6 +23,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "electron-dev": "set ELECTRON_START_URL=true&& electron .",
     "eject": "react-scripts eject",
     "electron": "electron  ."
   },

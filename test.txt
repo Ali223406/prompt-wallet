@@ -1,1 +1,5 @@
-voici le text ici
+text here
+
+
+
+localStorage.getItem("my_prompts")

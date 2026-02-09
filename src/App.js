@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { HashRouter, Routes, Route, useNavigate } from "react-router-dom";
 
 import DarkModeToggleLayout from "./components/DarkModeToggleLayout";
 import NavMenuLayout from "./components/NavMenuLayout";
@@ -27,7 +27,7 @@ function App() {
   if (prompts === null) return <div className="p-4 text-center">Loading...</div>;
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <NavigationListener />
       <DarkModeToggleLayout>
         <NavMenuLayout>
@@ -42,7 +42,7 @@ function App() {
           </Routes>
         </NavMenuLayout>
       </DarkModeToggleLayout>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
